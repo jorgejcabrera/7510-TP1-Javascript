@@ -23,12 +23,10 @@ var Validator = function(){
     }
 
     /*
-    * Returns true if query parameters size are equals that rule parameter
+    * Returns true if query parameters size are equals than rule parameters
     * quantity. */
-    this.validateParameters = function (queryParameters,rulesParameters) {
-        if ( queryParameters.length !== rulesParameters.length) {
-            throw new Error("Query parameters are invalid.");
-        }
+    this.areValidParameters = function (queryParameters,rulesParameters) {
+        return queryParameters.length === rulesParameters.length;
     }
 };
 

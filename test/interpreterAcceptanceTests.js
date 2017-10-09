@@ -83,9 +83,6 @@ describe("Interpreter", function () {
         it('padre(mario, pepe) should be false', function () {
             assert(interpreter.checkQuery('padre(mario, pepe)') === false);
         });
-
-        // TODO: Add more tests
-
     });
 
     describe('Interpreter Rules', function () {

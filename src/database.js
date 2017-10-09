@@ -44,8 +44,9 @@ class Database {
     buildFacts(rule,query) {
         var queryParams = this._parser.getParameters(query);
         var rulesParams = this._parser.getParameters(rule);
-        this._validator.validateParameters(queryParams,rulesParams);
-
+        if (!this._validator.areValidParameters(queryParams,rulesParams)) {
+            throw new Error("Query parameters are invalid.");
+        }
         for (var position in rulesParams){
             rule = rule.replace(new RegExp(rulesParams[position],'g'),queryParams[position]);
         }
