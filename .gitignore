@@ -1,5 +1,7 @@
 # Idea
 .idea*
+*.iml
+7510-TP1-Javascript.iml
 
 # Logs
 logs
