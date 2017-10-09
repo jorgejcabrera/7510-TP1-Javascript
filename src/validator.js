@@ -30,7 +30,6 @@ var Validator = function(){
             throw new Error("Query parameters are invalid.");
         }
     }
-
 };
 
 module.exports = Validator;

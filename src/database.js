@@ -34,7 +34,7 @@ class Database {
 
     findRule(query) {
         for (var rule of this._rules) {
-            var queryRule = query.match(/^[a-zA-Z]+/g);
+            var queryRule = query.match(/^[a-zA-Z]+/);
             if (rule.match(new RegExp("^"+queryRule[0])))
                 return rule;
         }
@@ -55,7 +55,7 @@ class Database {
 
     evaluateRule(query) {
         var rule = this.findRule(query);
-        if (rule != null) {
+        if (rule !== null) {
             var facts = this.buildFacts(rule,query);
             var intersection = this._facts.filter(function(n) { return facts.indexOf(n) > -1;});
             return intersection.length == facts.length;

@@ -15,11 +15,10 @@ var Interpreter = function () {
 
     this.checkQuery = function (query) {
         var validator = new Validator();
-        if (validator.isValidInput(query)){
-            return this.db.executeQuery(query);
+        if (!validator.isValidInput(query)){
+            throw new Error("Invalid query format.")
         }
-        return true;
-    }
+        return this.db.executeQuery(query);    }
 }
 
 module.exports = Interpreter;

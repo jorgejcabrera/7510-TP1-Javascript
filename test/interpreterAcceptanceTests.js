@@ -24,7 +24,21 @@ describe("Interpreter", function () {
         "hija(X, Y) :- mujer(X), padre(Y, X)."
     ];
 
+    var numberDatabase = [
+        "add(zero, zero, zero).",
+        "add(zero, one, one).",
+        "add(zero, two, two).",
+        "add(one, zero, one).",
+        "add(one, one, two).",
+        "add(one, two, zero).",
+        "add(two, zero, two).",
+        "add(two, one, zero).",
+        "add(two, two, one).",
+        "subtract(X, Y, Z) :- add(Y, Z, X)."
+    ];
+
     var interpreter = null;
+    var numberInterpreter = null;
 
     before(function () {
         // runs before all tests in this block
@@ -38,6 +52,9 @@ describe("Interpreter", function () {
         // runs before each test in this block
         interpreter = new Interpreter();
         interpreter.parseDB(db);
+
+        numberInterpreter = new Interpreter();
+        numberInterpreter.parseDB(numberDatabase);
     });
 
     afterEach(function () {
@@ -76,14 +93,47 @@ describe("Interpreter", function () {
         it('hijo(pepe, juan) should be true', function () {
             assert(interpreter.checkQuery('hijo(pepe, juan)') === true);
         });
+
         it('hija(maria, roberto) should be false', function () {
             assert(interpreter.checkQuery('hija(maria, roberto)') === false);
         });
+
         it('hijo(pepe, juan) should be true', function () {
-            assert(interpreter.checkQuery('hijo(pepe, juan)'));
+            assert(interpreter.checkQuery('hijo(pepe, juan)') === true);
         });
 
-        // TODO: Add more tests
+        it('hijo(pepe, jorge, juan) should throw an exception', function () {
+            expect(function(){
+                interpreter.checkQuery('hijo(pepe, jorge, juan)');
+            }).to.throw("Query parameters are invalid.");
+        });
+
+        it('hijo(pepe, jorg should throw an exception', function () {
+            expect(function(){
+                interpreter.checkQuery('hijo(pepe, jorg');
+            }).to.throw("Invalid query format.");
+        });
+
+
+        describe('Number Interpreter Facts',function () {
+            it('add(one, one, two) should be true', function () {
+               assert(numberInterpreter.checkQuery("add(one, one, two)") === true);
+            });
+
+            it('add(two, one, one) should be false', function () {
+                assert(numberInterpreter.checkQuery("add(two, one, one)") === false);
+            });
+        });
+
+        describe('Number Interpreter Rules',function () {
+            it('subtract(one, one, two) should be false', function () {
+                assert(numberInterpreter.checkQuery("subtract(one, one, two)") === false);
+            });
+
+            it("subtract(two, one, one) should be true", function () {
+                assert(numberInterpreter.checkQuery("subtract(two, one, one)") === true);
+            });
+        });
 
     });
 });

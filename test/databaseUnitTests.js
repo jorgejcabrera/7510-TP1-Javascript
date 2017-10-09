@@ -44,6 +44,7 @@ describe("Database", function () {
         it('load function should create 12 facts', function () {
             assert(database.facts.length === 12);
         });
+
         it('load function should create 2 rules', function () {
             assert(database.rules.length === 2);
         });
@@ -54,6 +55,7 @@ describe("Database", function () {
         it('load database with error', function () {
             assert(dbWithError.hasErrors() == true);
         });
+
     });
 
 });
